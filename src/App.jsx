@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import './App.css'
 import { mainContext } from './context/mainProvider'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './bootstrap.min-vapor.css'
 import { Button, Card } from 'react-bootstrap'
 
 function App() {
