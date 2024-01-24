@@ -1,33 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useContext, useState } from 'react'
 import './App.css'
+import { mainContext } from './context/mainProvider'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Button, Card } from 'react-bootstrap'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { setCity, data, tempToC, feelsLikeToC } = useContext(mainContext)
+  {data ? console.log(data) : null}
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <Button variant="primary" onClick={() => setCity('Hamburg')}>Hamburg</Button>
+      <Button variant="primary" onClick={() => setCity('Berlin')}>Berlin</Button>
+      <Button variant="primary" onClick={() => setCity('Köln')}>Köln</Button>
+      <Button variant="primary" onClick={() => setCity('Australia')}>Australia</Button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {data ?
+      (
+        <Card className="card">
+        <Card.Body>
+        <Card.Title>Weather in {data.name}, {data.sys.country}</Card.Title>
+        <Card.Img variant="top" src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} style={{width: '25%'}}/>
+        <Card.Text>
+        <h3>{data.weather[0].description}</h3>
+        <h4>Temperature: {data.main.temp} °C</h4>
+        <h4>Feels like: {data.main.feels_like} °C</h4>
+        </Card.Text>
+        <details>
+          <summary>More info</summary>
+          <p>Humidity: {data.main.humidity} %</p>
+          <p>Pressure: {data.main.pressure} hPa</p>
+          <p>Wind: {data.wind.speed} m/s</p>
+          <p>Clouds: {data.clouds.all} %</p>
+          <p>Visibility: {data.visibility} m</p>
+          <p>Longitude: {data.coord.lon}</p>
+          <p>Latitude: {data.coord.lat}</p>
+        </details>
+        </Card.Body>
+        <Card.Footer>
+        <small className="text-muted">Last updated: {new Date(data.dt * 1000).toLocaleString()} </small>
+        </Card.Footer>
+        </Card>
+      )
+      :
+      (
+        <h2>Choose a city</h2>
+      )
+      }
     </>
   )
 }
