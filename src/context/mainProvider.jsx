@@ -10,8 +10,6 @@ export const mainContext = createContext()
 const MainProvider = ({children}) => {
   const [city, setCity] = useState()
   const [data, setData] = useState()
-  const [tempToC, setTempToC] = useState(0)
-  const [feelsLikeToC, setFeelsLikeToC] = useState(0)
   useEffect(() => {
     const getWeather = async () => {
       const resp = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=138b03d4c6bda0d89747a902f3ad0102&units=metric`)
@@ -22,7 +20,7 @@ const MainProvider = ({children}) => {
 
   return (
     <>
-    <mainContext.Provider value={{ setCity, data, tempToC, feelsLikeToC}}>
+    <mainContext.Provider value={{ setCity, data}}>
       {children}
     </mainContext.Provider>
     </>
