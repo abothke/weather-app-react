@@ -14,7 +14,7 @@ const MainProvider = ({children}) => {
   const [feelsLikeToC, setFeelsLikeToC] = useState(0)
   useEffect(() => {
     const getWeather = async () => {
-      const resp = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=acf8bf4b4cccf9e8d7a865ecedf740d5&units=metric`)
+      const resp = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=138b03d4c6bda0d89747a902f3ad0102&units=metric`)
       setData(resp.data)
     }
     {city ? getWeather() : null}
